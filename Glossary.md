@@ -1,0 +1,15 @@
+## Glossary
+- ACI: Azure Container Instance
+- AKS: Azure Kubernetes Service
+- Application Insights: A special Azure service which provides key facts about an application
+- CI/CD: Continuous Integration and Continuous Delivery platform. Jenkins, CircleCI, and Github Actions, are a few examples
+- Cloud-based workstation: Sometimes, compute instances are referred to as a cloud-based workstation, because it is ready to start developing
+- Compute Instance: A distinct type of a compute offering from Azure
+- DevOps: A set of best practices that helps provide continuous delivery of software at the highest quality with a constant feedback loop
+- Deployment: A way to deliver work into production
+- Endpoint: A part of an HTTP API. Either a full URL or a partial URL identifying a part
+- HTTP API: A URL that exposes logic to interact with software, in this case, a trained model
+- HTTP Status code: A number that represents a status when an HTTP server responds. Error conditions in the server side start at 500
+- Logging: Informational output produced by software, usually in the form of text
+- Shipping into production: The most important aspect of a Machine Learning specialist
+- Webservice: One of the most used Python classes from Azure's Python SDK
