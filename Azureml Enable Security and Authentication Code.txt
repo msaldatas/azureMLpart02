@@ -1,0 +1,68 @@
+Azureml Enable Security and Authentication Code
+(In git bash)
+az extension add -n azure-cli-ml
+
+az ad sp create-for-rbac --sdk-auth --name ml-auth
+
+OUTPUT:
+Changing "ml-auth" to a valid URI of "http://ml-auth", which is the required format used for service principal names
+Creating a role assignment under the scope of "/subscriptions/xxxxxxxx-2cb7-4cc5-90b4-xxxxxxxx24c6"
+  Retrying role assignment creation: 1/36
+  Retrying role assignment creation: 2/36
+{
+  "clientId": "xxxxxxxx-3af0-4065-8e14-xxxxxxxxxxxx",
+  "clientSecret": "xxxxxxxxxxxxx.IPgqLjBH2.Uj6VCo1hk3",
+  "subscriptionId": "39b85eca-2cb7-4cc5-90b4-eb1d0c6c24c6",
+  "tenantId": "xxxxxxxx-cbdb-4c04-89fc-xxxxxxxxxxxx",
+  "activeDirectoryEndpointUrl": "https://login.microsoftonline.com",
+  "resourceManagerEndpointUrl": "https://management.azure.com/",
+  "activeDirectoryGraphResourceId": "https://graph.windows.net/",
+  "sqlManagementEndpointUrl": "https://management.core.windows.net:8443/",
+  "galleryEndpointUrl": "https://gallery.azure.com/",
+  "managementEndpointUrl": "https://management.core.windows.net/"
+
+(Use client id from above output)
+az ad sp show --id xxxxxxxx-3af0-4065-8e14-xxxxxxxxxxxx
+
+(Use objectid retrieved from above)
+$ az ml workspace share -w Demo -g demo --user xxxxxxxx-cbdb-4cfd-089f-xxxxxxxxxxxx --role owner
+
+In this exercise, you will create a Service Principal which is a good way to authenticate to Azure ML services.
+
+Now create the Service Principal (SP). Remember you can use whatever name you want, although in the examples used ml-auth.
+
+Note: you won't be able to create a Service Principal if you are using the lab provided to you, an error like this ValidationError: Insufficient privileges to complete the operation will appear. It is because you are not authorized to create a Service Principal on the Udaicty account. But this will not be a blocker for other exercises in the course. There should not be any issues if you are using your own account. We still encourage you to follow the demo and type in the command and see the information and output come from Azure.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________________________________________________________
+from azureml.core import Workspace
+from azureml.core.webservice import Webservice
+
+# Requires the config to be downloaded first to the current working directory
+ws = Workspace.from_config()
+
+# Set with the deployment name
+name = "demo-model-deploy"
+
+# load existing web service
+service = Webservice(name=name, workspace=ws)
+
+# enable application insight
+service.update(enable_app_insights=True)
+
+logs = service.get_logs()
+
+for line in logs.split('\n'):
+    print(line)
